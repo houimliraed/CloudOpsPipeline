@@ -36,7 +36,7 @@ jobs:
               run: |
                 aws ecr get-login-password --region eu-west-3 | docker login --username AWS --password-stdin ${{vars.AWS_ACCOUNT_ID}}.dkr.ecr.eu-west-3.amazonaws.com
                 docker build --compress -t ${{ vars.ECR_REPO_APP }}:${{github.sha}} .
-                docker push ${{ vars.ECR_REPO_APP }}:${{github.sha}} .
+                docker push ${{ vars.ECR_REPO_APP }}:${{github.sha}}
                 docker build --compress -t ${{vars.ECR_REPO_PROXY}}:${{github.sha}} proxy/
                 docker push ${{ vars.ECR_REPO_PROXY}}:${{github.sha}}
 
