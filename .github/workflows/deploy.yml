@@ -1,0 +1,44 @@
+
+name: deploy
+
+on:
+    push:
+        branches:
+            - main
+            - prod
+
+jobs:
+    test-lint:
+        uses: ./.github/workflows/test-and-lint.yml
+        name: test-and-lint
+        secrets:
+            DOCKERHUB_USER: ${{ vars.DOCKERHUB_USER}}
+            DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN}}
+
+    deploy:
+        name: deploy
+        runs-on: ubuntu-latest
+        needs: [test-lint]
+        steps:
+            - name: checkout
+              uses: actions/checkout@v4
+            - name: Set Vars
+              run: |
+                if [[ $GITHUB_REF == 'refs/heads/prod' ]]; then
+                  echo "prod" > .workspace
+                else
+                  echo "staging" > .workspace
+                fi
+            - name: push to ecr
+              env:
+                AWS_ACCESS_KEY_ID: ${{vars.AWS_ACCESS_KEY_ID}}
+                AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+              run: |
+                aws ecr get-login-password --region eu-west-3 | docker login --username AWS --password-stdin ${{vars.AWS_ACCOUNT_ID}}.dkr.ecr.eu-west-3.amazonaws.com
+                docker build --compress -t ${{ vars.ECR_REPO_APP }}:GITHUB_SHA .
+                docker push ${{ vars.ECR_REPO_APP }}:GITHUB_SHA .
+                docker build --compress -t ${{vars.ECR_REPO_PROXY}}:GITHUB_SHA proxy/
+                docker push ${{ vars.ECR_REPO_PROXY}}:GITHUB_SHA
+
+
+
