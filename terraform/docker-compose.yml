@@ -2,9 +2,9 @@ services:
   terraform:
     image: hashicorp/terraform:1.6.2
     volumes:
-      - ./setup:/tf/setup
-      - ./deploy:/tf/deploy
-    working_dir: /tf  
+      - ./setup:/terraform/setup
+      - ./deploy:/terraform/deploy
+    working_dir: /terraform
     environment:
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}

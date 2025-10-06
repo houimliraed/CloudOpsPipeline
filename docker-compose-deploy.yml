@@ -1,5 +1,3 @@
-
-
 services:
   app:
     build:
@@ -15,6 +13,7 @@ services:
       - DB_PASS=${DB_PASS}
       - SECRET_KEY=${DJANGO_SECRET_KEY}
       - ALLOWED_HOSTS=${DJANGO_ALLOWED_HOSTS}
+      - PORT=9000
     depends_on:
       - db
 
@@ -35,7 +34,7 @@ services:
     depends_on:
       - app
     ports:
-      - 80:8000
+      - 8000:8000
     volumes:
       - static-data:/vol/static
       - media-data:/vol/media

@@ -5,7 +5,6 @@ terraform {
       version = "5.23.0"
     }
   }
-
   backend "s3" {
     bucket               = "devopsrepo-tf-state"
     key                  = "tf-state-deploy"
@@ -15,8 +14,8 @@ terraform {
     dynamodb_table       = "devopsrepo-tf-lock"
 
   }
-
 }
+
 provider "aws" {
   region = "eu-west-3"
   default_tags {
@@ -24,9 +23,12 @@ provider "aws" {
       Environment = terraform.workspace
       Project     = var.project
       Contact     = var.contact
-    ManageBy = "Terraform/deploy" }
+      ManageBy    = "Terraform/deploy"
+    }
   }
+
 }
+
 locals {
   prefix = "${var.prefix}-${terraform.workspace}"
 }

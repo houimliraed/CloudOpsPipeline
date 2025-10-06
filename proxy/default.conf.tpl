@@ -1,5 +1,5 @@
 server {
-    listen ${LISTEN_PORT};
+    listen ${PROXY_LISTEN_PORT};
 
     location /static/static {
         alias /vol/static;

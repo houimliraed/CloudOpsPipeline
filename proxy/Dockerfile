@@ -3,11 +3,11 @@ FROM nginxinc/nginx-unprivileged:1-alpine
 
 COPY ./default.conf.tpl /etc/nginx/default.conf.tpl
 COPY ./gunicorn_headers /etc/nginx/gunicorn_headers
-COPY scripts/run.sh /run.sh
+COPY ./scripts/run.sh /run.sh
 
 
 
-ENV LISTEN_PORT=8000
+ENV PROXY_LISTEN_PORT=8000
 ENV APP_HOST=app
 ENV APP_PORT=9000
 
@@ -20,8 +20,6 @@ RUN mkdir -p /vol/static && \
     chown -R nginx:nginx /vol/static /vol/media && \
     chown nginx:nginx /etc/nginx/conf.d/default.conf && \
     chmod +x /run.sh
-
-VOLUME /vol/static
 
 USER nginx
 
