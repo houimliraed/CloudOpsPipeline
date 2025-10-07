@@ -9,4 +9,3 @@ Containerized Django application ready for cloud deployment
 Full CI/CD pipeline setup for automated deployments
 Production-ready configuration with Docker Compose, Nginx proxy, and PostgreSQL
 AWS integration with ECR, S3 state management, and DynamoDB locking
-A complete example of modern DevOps practices for deploying web applications to AWS with full automation.
