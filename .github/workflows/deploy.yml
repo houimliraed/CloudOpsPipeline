@@ -48,9 +48,9 @@ jobs:
                 TF_VAR_DJANGO_SECRET_KEY: ${{ secrets.TF_VAR_DJANGO_SECRET_KEY }}
               run: |
                 export TF_VAR_ecr_app_image="${{ vars.ECR_REPO_APP }}:${{github.sha}}"
-                export TF_VAr_ecr_proxy_image="${{vars.ECR_REPO_PROXY}}:${{github.sha}}"
-                workspace=${cat .workspace}
-                cd terraform /
+                export TF_VAR_ecr_proxy_image="${{vars.ECR_REPO_PROXY}}:${{github.sha}}"
+                workspace=$(cat .workspace)
+                cd terraform/
                 docker compose run --rm terraform -chdir=deploy/ init
                 docker compose run --rm terraform -chdir=deploy/ workspace select -or-create $workspace
                 docker compose run --rm terraform -chdir=deploy/ apply -auto-approve
