@@ -23,7 +23,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
         run: |
           export TF_WORKSACE=${{github.event.inputs.environment}}
-          cd /terraform
+          cd terraform
           docker compose run --rm terraform -chdir=deploy/ init
           docker compose run --rm terraform -chdir=deploy destroy -auto-approve
 
