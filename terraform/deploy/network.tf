@@ -23,7 +23,7 @@ resource "aws_internet_gateway" "main" {
 
 }
 #####
-# public subnet for the load balancer
+# public subnet A
 #####
 
 resource "aws_subnet" "public_a" {
@@ -59,7 +59,7 @@ resource "aws_route" "public_internet_access_a" {
 
 }
 #####
-# public subnet for the load balancer
+# public subnest B
 #####
 
 resource "aws_subnet" "public_b" {
@@ -96,3 +96,25 @@ resource "aws_route" "public_internet_access_b" {
 }
 
 
+######
+# private subnet 
+######
+
+resource "aws_subnet" "private_a" {
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = "10.1.10.0/24"
+  availability_zone = "${data.aws_region.current.name}a"
+  tags = {
+    Name = "${local.prefix}-private-a"
+  }
+
+}
+resource "aws_subnet" "private_b" {
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = "10.1.11.0/24"
+  availability_zone = "${data.aws_region.current.name}a"
+  tags = {
+    Name = "${local.prefix}-private-b"
+  }
+
+}
