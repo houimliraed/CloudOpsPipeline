@@ -141,7 +141,7 @@ resource "aws_vpc_endpoint" "ecr" {
   service_name        = "com.amazonaws.${data.aws_region.current.name}.ecr.api"
   vpc_endpoint_type   = "Interface"
   private_dns_enabled = true
-  subnet_ids          = [aws_subnet.private_a, aws_subnet.private_b]
+  subnet_ids          = [aws_subnet.private_a.id, aws_subnet.private_b.id]
 
   security_group_ids = [
   aws_security_group.endpoint_access.id]
@@ -156,7 +156,7 @@ resource "aws_vpc_endpoint" "dkr" {
   service_name        = "com.amazonaws.${data.aws_region.current.name}.ecr.api"
   vpc_endpoint_type   = "Interface"
   private_dns_enabled = true
-  subnet_ids          = [aws_subnet.private_a, aws_subnet.private_b]
+  subnet_ids          = [aws_subnet.private_a.id, aws_subnet.private_b.id]
 
   security_group_ids = [
   aws_security_group.endpoint_access.id]
@@ -171,7 +171,7 @@ resource "aws_vpc_endpoint" "cloudwatch_logs" {
   service_name        = "com.amazonaws.${data.aws_region.current.name}.logs"
   vpc_endpoint_type   = "Interface"
   private_dns_enabled = true
-  subnet_ids          = [aws_subnet.private_a, aws_subnet.private_b]
+  subnet_ids          = [aws_subnet.private_a.id, aws_subnet.private_b.id]
 
   security_group_ids = [
   aws_security_group.endpoint_access.id]
@@ -186,7 +186,7 @@ resource "aws_vpc_endpoint" "ssm" {
   service_name        = "com.amazonaws.${data.aws_region.current.name}.ssmmessages"
   vpc_endpoint_type   = "Interface"
   private_dns_enabled = true
-  subnet_ids          = [aws_subnet.private_a, aws_subnet.private_b]
+  subnet_ids          = [aws_subnet.private_a.id, aws_subnet.private_b.id]
 
   security_group_ids = [
   aws_security_group.endpoint_access.id]
