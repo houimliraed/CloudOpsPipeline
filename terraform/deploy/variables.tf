@@ -16,3 +16,11 @@ variable "contact" {
   default     = "houimliraed@engineergrid.com"
 
 }
+variable "db_username" {
+  description = "username for the app api database"
+  default     = "cloudops"
+}
+variable "db_password" {
+  description = "password for the terraform database"
+
+}
